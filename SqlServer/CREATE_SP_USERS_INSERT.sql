@@ -23,14 +23,14 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @id INT;
-	SET @id = (SELECT id FROM VIEW_USERS WHERE documentNumber = @documentNumber and documentType = @documentType_id and [login] = @login)
+	SET @id = (SELECT TOP 1 id FROM USERS WHERE documentNumber = @documentNumber and documentType_id = @documentType_id and [login] = @login)
 	IF @id IS NULL
 	BEGIN
 		BEGIN TRANSACTION
 		BEGIN TRY
 			INSERT INTO USERS
 			VALUES (@documentType_id,@documentNumber,@name,@surname,@login,@password,@email,@createBy,@dateCreate,@modifyBy,@dateModify,@active,@profile_id)
-			SET @id = (SELECT id FROM VIEW_USERS WHERE documentNumber = @documentNumber and documentType = @documentType_id and [login] = @login)
+			SET @id = (SELECT TOP 1 id FROM USERS WHERE documentNumber = @documentNumber and documentType_id = @documentType_id and [login] = @login)
 			COMMIT TRANSACTION
 			RETURN @id
 		END TRY

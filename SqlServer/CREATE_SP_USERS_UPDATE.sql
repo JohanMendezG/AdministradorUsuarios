@@ -22,7 +22,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @validation BIGINT
-	SET @validation = (SELECT id FROM VIEW_USERS WHERE documentNumber = @documentNumber and documentType = @documentType_id and [login] = @login)
+	SET @validation = (SELECT TOP 1 id FROM USERS WHERE documentNumber = @documentNumber and documentType_id = @documentType_id and [login] = @login)
 	IF @validation IS NULL
 	BEGIN
 		BEGIN TRANSACTION

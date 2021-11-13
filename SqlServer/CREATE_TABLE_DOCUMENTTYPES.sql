@@ -10,3 +10,5 @@ id INT PRIMARY KEY NOT NULL,
 documentType VARCHAR(30) NOT NULL
 )
 GO
+
+INSERT INTO DOCUMENTTYPES VALUES (1,'Cedula Ciudadania'),(2,'Cedula Extrangeria')
