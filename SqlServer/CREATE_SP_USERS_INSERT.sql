@@ -30,8 +30,8 @@ BEGIN
 		BEGIN TRY
 			INSERT INTO USERS
 			VALUES (@documentType_id,@documentNumber,@name,@surname,@login,@password,@email,@createBy,@dateCreate,@modifyBy,@dateModify,@active,@profile_id)
-			SET @id = (SELECT TOP 1 id FROM USERS WHERE documentNumber = @documentNumber AND documentType_id = @documentType_id AND [login] = @login)
 			COMMIT TRANSACTION
+			SET @id = (SELECT TOP 1 id FROM USERS WHERE documentNumber = @documentNumber AND documentType_id = @documentType_id AND [login] = @login)
 			RETURN @id
 		END TRY
 		BEGIN CATCH
