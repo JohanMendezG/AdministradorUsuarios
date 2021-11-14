@@ -24,5 +24,5 @@ SELECT
 	P.[profile]
 FROM USERS U
 INNER JOIN DOCUMENTTYPES D ON U.documentType_id = D.id
-INNER JOIN PROFILES P ON U.profile_id = P.[profile]
+INNER JOIN PROFILES P ON U.profile_id = P.id
 GO

@@ -17,28 +17,34 @@ CREATE PROCEDURE SP_USERS_UPDATE
 @modifyBy BIGINT,
 @dateModify DATE,
 @active BIT,
-@profile_id INT
+@profile_id INT,
+@validation BIT OUT
 AS
 BEGIN
 	SET NOCOUNT ON;
-	DECLARE @validation BIGINT
-	SET @validation = (SELECT TOP 1 id FROM USERS WHERE documentNumber = @documentNumber and documentType_id = @documentType_id and [login] = @login)
-	IF @validation IS NULL
-	BEGIN
-		BEGIN TRANSACTION
-		BEGIN TRY
-			UPDATE USERS SET documentType_id = @documentType_id, documentNumber = @documentNumber, [name] = @name, surname = @surname, [login] = @login,
-			[password] = @password, email = @email, modifyBy = @modifyBy, dateModify = @dateModify, active = @active, profile_id = @profile_id WHERE id = @id
+	BEGIN TRANSACTION
+	BEGIN TRY
+		UPDATE USERS SET documentType_id = @documentType_id, documentNumber = @documentNumber, [name] = @name, surname = @surname, [login] = @login,
+		[password] = @password, email = @email, modifyBy = @modifyBy, dateModify = @dateModify, active = @active, profile_id = @profile_id WHERE id = @id
+
+		DECLARE @count INT = 0;
+		SET @count = (SELECT COUNT(id) FROM USERS WHERE documentNumber = @documentNumber AND documentType_id = @documentType_id AND [login] = @login)
+		IF @count = 1
+		BEGIN
 			COMMIT TRANSACTION
-			RETURN 1
-		END TRY
-		BEGIN CATCH
+			SET @validation = 1
+			RETURN @validation
+		END ELSE
+		BEGIN
 			ROLLBACK TRANSACTION
-			RETURN 0
-		END CATCH
-	END ELSE 
-	BEGIN
-		RETURN 0
-	END
+			SET @validation = 0
+			RETURN @validation
+		END
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+		SET @validation = 0
+		RETURN @validation
+	END CATCH
 END
 GO
