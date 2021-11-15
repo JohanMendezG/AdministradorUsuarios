@@ -1,0 +1,84 @@
+﻿@page
+@model Adminsitrador.Usuarios.Web.Pages.Users.IndexModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admi de Usuarios</title>
+    <link href="~/css/users.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-container">
+        <div class="titulo-container">
+            <h3>Adminsitrador de usuarios</h3>
+        </div>
+        <div class="button-container">
+            <div class="button-group-container">
+                <a href="/Users/Action">
+                    <div class="button"><span>Nuevo</span></div>
+                </a>
+            </div>
+        </div>
+        <div class="titulo-container subtitulo">
+            <h3>Historial de usuarios</h3>
+        </div>
+        <div class="table-container">
+            <div class="head">
+                <div class="cell" style="width: 5%;"><span>Mod</span></div>
+                <div class="cell" style="width: 3%;"><span>ID</span></div>
+                <div class="cell" style="width: 15%;"><span>Tipo.Doc</span></div>
+                <div class="cell" style="width: 12%;"><span>Nro.Doc</span></div>
+                <div class="cell" style="width: 13%;"><span>Nombres</span></div>
+                <div class="cell" style="width: 12%;"><span>Apellido</span></div>
+                <div class="cell" style="width: 10%;"><span>Login</span></div>
+                <div class="cell" style="width: 12%;"><span>Perfil</span></div>
+                <div class="cell" style="width: 13%;"><span>Fecha creación</span></div>
+                <div class="cell" style="width: 5%;"><span>Activo</span></div>
+            </div>
+            <div class="body">
+                @{int i = 1; }
+                @foreach (var item in @Model.Users)
+                {
+                    if ((i % 2) == 0)
+                    {
+                        <div class="item">
+                            <div class="cell" style="width: 5%; justify-content: center;"><a href="@item.Mod"><div></div></a></div>
+                            <div class="cell" style="width: 3%;"><span>@item.Id</span></div>
+                            <div class="cell" style="width: 15%;"><span>@item.DocumentType</span></div>
+                            <div class="cell" style="width: 12%;"><span>@item.DocumentNumber</span></div>
+                            <div class="cell" style="width: 13%;"><span>@item.Names</span></div>
+                            <div class="cell" style="width: 12%;"><span>@item.Surname</span></div>
+                            <div class="cell" style="width: 10%;"><span>@item.Login</span></div>
+                            <div class="cell" style="width: 12%;"><span>@item.Profile</span></div>
+                            <div class="cell" style="width: 13%;"><span>@item.DateCreate</span></div>
+                            <div class="cell" style="width: 5%;"><span>@item.Active</span></div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="item">
+                            <div class="cell light" style="width: 5%; justify-content: center;"><a href="@item.Mod"><div></div></a></div>
+                            <div class="cell light" style="width: 3%;"><span>@item.Id</span></div>
+                            <div class="cell light" style="width: 15%;"><span>@item.DocumentType</span></div>
+                            <div class="cell light" style="width: 12%;"><span>@item.DocumentNumber</span></div>
+                            <div class="cell light" style="width: 13%;"><span>@item.Names</span></div>
+                            <div class="cell light" style="width: 12%;"><span>@item.Surname</span></div>
+                            <div class="cell light" style="width: 10%;"><span>@item.Login</span></div>
+                            <div class="cell light" style="width: 12%;"><span>@item.Profile</span></div>
+                            <div class="cell light" style="width: 13%;"><span>@item.DateCreate</span></div>
+                            <div class="cell light" style="width: 5%;"><span>@item.Active</span></div>
+                        </div>
+                    }
+                    i++;
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

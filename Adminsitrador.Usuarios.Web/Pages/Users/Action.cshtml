@@ -1,0 +1,152 @@
+﻿@page "{id:int?}"
+@model Adminsitrador.Usuarios.Web.Pages.Users.ActionModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Admi de Usuarios";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admi de Usuarios</title>
+    <link href="~/css/action.css" rel="stylesheet" />
+    <link href="~/css/users.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="page-container">
+        <div class="titulo-container">
+            <h3>Creación o modificación de usuarios</h3>
+        </div>
+        @if (Model.Id == null)
+        {
+            <form method="post">
+                <div class="form-container">
+                    <div class="item-form-container">
+                        <label>Tipo Documento</label>
+                        <select asp-items="@(new SelectList(Model.DocumentTypes,"Id","_DocumentType"))" asp-for="@Model.User.DocumentType_id" class="select">
+                            <option value="" selected disabled>--Seleccione--</option>
+                        </select>
+                        <span asp-validation-for="@Model.User.DocumentType_id"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Nro de documento</label>
+                        <input asp-for="@Model.User.DocumentNumber" placeholder="Nro de documento" />
+                        <span asp-validation-for="@Model.User.DocumentNumber"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Nombre</label>
+                        <input asp-for="@Model.User.Name" placeholder="Nombre" />
+                        <span asp-validation-for="@Model.User.Name"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Apellido</label>
+                        <input asp-for="@Model.User.Surname" placeholder="Apellido" />
+                        <span asp-validation-for="@Model.User.Surname"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Login</label>
+                        <input asp-for="@Model.User.Login" placeholder="Login" />
+                        <span asp-validation-for="@Model.User.Login"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Password</label>
+                        <input asp-for="@Model.User.Password" placeholder="Password" type="password" />
+                        <span asp-validation-for="@Model.User.Password"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Perfil</label>
+                        <select asp-items="@(new SelectList(Model.Profiles,"Id","_Profile"))" asp-for="@Model.User.Profile_Id" class="select">
+                            <option value="" selected disabled>--Seleccione--</option>
+                        </select>
+                        <span asp-validation-for="@Model.User.Profile_Id"></span>
+                    </div>
+                    <div class="item-form-container check">
+                        <input asp-for="@Model.User.Active" type="checkbox" style="width: 10%;" />
+                        <label style="margin: 0;">Activo</label>
+                    </div>
+                </div>
+                <div class="titulo-container"></div>
+                <div class="button-container">
+                    <div class="button-group-container">
+                        <a href="/Users">
+                            <div class="button"><span>Volver</span></div>
+                        </a>
+                        <input class="button" type="submit" value="Guardar" asp-page-handler="New" />
+                    </div>
+                </div>
+            </form>
+        }
+        else
+        {
+            <form method="post">
+                <div class="form-container">
+                    <input type="hidden" asp-for="@Model.User.Id" />
+                    <input type="hidden" asp-for="@Model.User.CreateBy" />
+                    <input type="hidden" asp-for="@Model.User.DateCreate" />
+                    <input type="hidden" asp-for="@Model.User.Email" />
+                    <div class="item-form-container">
+                        <label>Tipo Documento</label>
+                        <select asp-items="@(new SelectList(Model.DocumentTypes,"Id","_DocumentType"))" asp-for="@Model.User.DocumentType_id" class="select">
+                            <option value="" selected disabled>--Seleccione--</option>
+                        </select>
+                        <span asp-validation-for="@Model.User.DocumentType_id"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Nro de documento</label>
+                        <input asp-for="@Model.User.DocumentNumber" value="@Model.User.DocumentNumber" />
+                        <span asp-validation-for="@Model.User.DocumentNumber"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Nombre</label>
+                        <input asp-for="@Model.User.Name" value="@Model.User.Name" />
+                        <span asp-validation-for="@Model.User.Name"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Apellido</label>
+                        <input asp-for="@Model.User.Surname" value="@Model.User.Surname" />
+                        <span asp-validation-for="@Model.User.Surname"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Login</label>
+                        <input asp-for="@Model.User.Login" value="@Model.User.Login" />
+                        <span asp-validation-for="@Model.User.Login"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Password</label>
+                        <input asp-for="@Model.User.Password" value="@Model.User.Password" type="password" />
+                        <span asp-validation-for="@Model.User.Password"></span>
+                    </div>
+                    <div class="item-form-container">
+                        <label>Perfil</label>
+                        <select asp-items="@(new SelectList(Model.Profiles,"Id","_Profile"))" asp-for="@Model.User.Profile_Id" class="select">
+                            <option value="" selected disabled>--Seleccione--</option>
+                        </select>
+                        <span asp-validation-for="@Model.User.Profile_Id"></span>
+                    </div>
+                    <div class="item-form-container check">
+                        <input asp-for="@Model.User.Active" type="checkbox" checked="@Model.User.Active" style="width: 10%;" />
+                        <label style="margin: 0;">Activo</label>
+                    </div>
+                </div>
+                <div class="titulo-container"></div>
+                <div class="button-container">
+                    <div class="button-group-container">
+                        <a href="/Users">
+                            <div class="button"><span>Volver</span></div>
+                        </a>
+                        <input class="button" type="submit" value="Guardar" asp-page-handler="Update" />
+                    </div>
+                </div>
+            </form>
+        }
+        @if (Model.Message != string.Empty)
+        {
+            <h2>@Model.Message</h2>
+        }
+    </div>
+</body>
+</html>
